@@ -1,0 +1,4 @@
+*.db
+GEMINI.md
+.venv
+*.egg*

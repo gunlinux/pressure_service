@@ -1,0 +1,65 @@
+[project]
+name = "pressure-service"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "loki", email = "gunlinux@ya.ru" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "dotenv>=0.9.9",
+    "fastapi[standard]",
+    "uvicorn",
+    "sqlalchemy",
+    "alembic",
+    "pydantic",
+    "psycopg2-binary",
+]
+
+
+[tool.ruff.lint]
+# 1. Enable flake8-bugbear (`B`) rules, in addition to the defaults.
+select = ["ALL"]
+
+# 2. Avoid enforcing line-length violations (`E501`)
+ignore = ["E501", "Q000", "D", "DTZ005", "SIM117", "ANN", "I001", "S101", "T201", "COM812", "Q003", "EM101"]
+
+# 3. Avoid trying to fix flake8-bugbear (`B`) violations.
+unfixable = ["B"]
+
+# 4. Ignore `E402` (import violations) in all `__init__.py` files, and in selected subdirectories.
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402"]
+"**/{tests,docs,tools}/*" = ["E402"]
+
+[tool.ruff.format]
+# 5. Use single quotes in `ruff format`.
+quote-style = "single"
+
+[tool.mypy]
+warn_return_any = false
+warn_unused_configs = false
+ignore_missing_imports = true
+check_untyped_defs = true
+
+[tool.pyright]
+ignore = ["tests"]
+reportOptionalCall = false
+reportUnusedCallResult = false
+# вернуть
+reportUnannotatedClassAttribute = false
+reportExplicitAny = false
+reportAny = false
+reportUnknownMemberType = false
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.404",
+    "pytest>=8.4.1",
+    "ruff>=0.12.10",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]
