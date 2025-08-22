@@ -23,5 +23,4 @@ class PressureMeasurement(PressureMeasurementBase):
 
 
 class PressureMeasurementCreateList(BaseModel):
-    telegram_nickname: str
     measurements: List[PressureMeasurementCreate]
