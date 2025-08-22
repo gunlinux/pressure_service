@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 
 def test_create_pressure_measurement(client: TestClient):
     # First, create a user
-    client.post("/users/", json={"telegram_nickname": "pressureuser"})
+    client.post("/users/", json={"id": 2001, "telegram_nickname": "pressureuser"})
 
     response = client.post(
         "/pressure/",
@@ -37,7 +37,7 @@ def test_create_pressure_measurement_for_nonexistent_user(client: TestClient):
 
 def test_create_multiple_pressure_measurements(client: TestClient):
     # First, create a user
-    client.post("/users/", json={"telegram_nickname": "pressureuser2"})
+    client.post("/users/", json={"id": 2002, "telegram_nickname": "pressureuser2"})
 
     response = client.post(
         "/pressure/",

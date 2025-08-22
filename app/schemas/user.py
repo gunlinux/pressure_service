@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from datetime import datetime
 
 class UserBase(BaseModel):
+    id: int
     telegram_nickname: str
 
 

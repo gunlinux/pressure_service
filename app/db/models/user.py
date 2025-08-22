@@ -7,7 +7,7 @@ from app.db.base import Base
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=False)
     telegram_nickname = Column(String, unique=True, index=True, nullable=False)
     registration_data = Column(DateTime, server_default=func.now())
 
