@@ -1,4 +1,6 @@
 from fastapi.testclient import TestClient
+from unittest.mock import patch
+from sqlalchemy.exc import IntegrityError
 
 
 def test_create_user(client: TestClient):
@@ -22,3 +24,13 @@ def test_create_duplicate_user(client: TestClient):
     )
     assert response.status_code == 400
     assert response.json() == {'detail': 'Telegram nickname already registered'}
+
+
+def test_create_user_integrity_error(client: TestClient):
+    with patch('app.api.endpoints.users.user_service.get_user_by_telegram_nickname', return_value=None):
+        with patch('app.api.endpoints.users.user_service.create_user', side_effect=IntegrityError(None, None, None)):
+            response = client.post(
+                '/users/', json={'id': 111, 'telegram_nickname': 'integrity_error_user'}
+            )
+            assert response.status_code == 400
+            assert response.json() == {'detail': 'Telegram nickname already registered'}
