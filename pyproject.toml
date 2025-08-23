@@ -15,6 +15,7 @@ dependencies = [
     "alembic",
     "pydantic",
     "psycopg2-binary",
+    "sqladmin",
 ]
 
 
@@ -31,7 +32,7 @@ unfixable = ["B"]
 # 4. Ignore `E402` (import violations) in all `__init__.py` files, and in selected subdirectories.
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["E402"]
-"**/{tests,docs,tools}/*" = ["E402"]
+"**/{tests,docs,tools}/*" = ["E402", "PLR2004"]
 
 [tool.ruff.format]
 # 5. Use single quotes in `ruff format`.
@@ -44,7 +45,7 @@ ignore_missing_imports = true
 check_untyped_defs = true
 
 [tool.pyright]
-ignore = ["tests"]
+ignore = ["tests", "alembic"]
 reportOptionalCall = false
 reportUnusedCallResult = false
 # вернуть

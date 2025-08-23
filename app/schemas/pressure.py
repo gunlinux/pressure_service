@@ -1,12 +1,11 @@
 from pydantic import BaseModel
-from typing import List, Optional
 from datetime import datetime
 
 
 class PressureMeasurementBase(BaseModel):
     up: int
     down: int
-    pulse: Optional[int] = None
+    pulse: int | None = None
 
 
 class PressureMeasurementCreate(PressureMeasurementBase):
@@ -23,4 +22,4 @@ class PressureMeasurement(PressureMeasurementBase):
 
 
 class PressureMeasurementCreateList(BaseModel):
-    measurements: List[PressureMeasurementCreate]
+    measurements: list[PressureMeasurementCreate]

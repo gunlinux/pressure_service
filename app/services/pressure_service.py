@@ -3,16 +3,21 @@ from app.db.models.pressure import PressureMeasurement
 from app.schemas.pressure import PressureMeasurementCreate
 from app.services.user_service import UserService
 from fastapi import HTTPException
-from typing import List
+
 
 class PressureMeasurementService:
-    def __init__(self, user_service: UserService = UserService()):
-        self.user_service = user_service
+    def __init__(self, user_service: UserService | None = None):
+        self.user_service = user_service or UserService()
 
-    def create_measurements(self, db: Session, user_id: int, measurements_data: List[PressureMeasurementCreate]):
+    def create_measurements(
+        self,
+        db: Session,
+        user_id: int,
+        measurements_data: list[PressureMeasurementCreate],
+    ):
         user = self.user_service.get_user_by_id(db, user_id=user_id)
         if not user:
-            raise HTTPException(status_code=404, detail="User not found")
+            raise HTTPException(status_code=404, detail='User not found')
 
         measurements = []
         for measurement_data in measurements_data:
@@ -20,7 +25,7 @@ class PressureMeasurementService:
                 up=measurement_data.up,
                 down=measurement_data.down,
                 pulse=measurement_data.pulse,
-                user_id=user.id
+                user_id=user.id,
             )
             measurements.append(db_measurement)
 
